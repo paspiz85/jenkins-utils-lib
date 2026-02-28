@@ -8,7 +8,7 @@
 - Scorri fino a Global Pipeline Libraries
 - Clicca Add
 - Inserisci la libreria con:
-  - Name: paspiz85-jenkins-utils-lib
+  - Name: my-jenkins-utils-lib
   - Default version: main
   - Load implicitly: OFF
   - Allow default version to be overridden: ON
@@ -22,7 +22,7 @@
 Se non hai “Load implicitly”:
 
 ```
-@Library('paspiz85-jenkins-utils-lib') _
+@Library(value="my-jenkins-utils-lib", changelog=false)
 
 pipeline {
   agent any

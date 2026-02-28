@@ -152,3 +152,76 @@ def release(Map args = [:]) {
     ]
   }
 }
+
+def assetFind(Map args = [:]) {
+  def credentialsId = args.credentialsId ?: args.credentialId ?: env.GITHUB_CREDS_ID
+  def owner = args.owner?.toString()?.trim()
+  if (!owner) {
+    error "[github] owner is required"
+  }
+  def repo = args.repo?.toString()?.trim()
+  if (!repo) {
+    error "[github] repo is required"
+  }
+  def tag = (args.tag ?: '').toString().trim()
+  def tagEnc = java.net.URLEncoder.encode(tag, 'UTF-8')
+  def releaseUrl = (tag  == '' || tag.equalsIgnoreCase('latest'))
+    ? "https://api.github.com/repos/${owner}/${repo}/releases/latest"
+    : "https://api.github.com/repos/${owner}/${repo}/releases/tags/${tagEnc}"
+  def pattern = java.util.regex.Pattern.compile(args.asset_regex ?: '.*')
+  def out = null
+  if (credentialsId) {
+    withCredentials([
+      usernamePassword(credentialsId: credentialsId, usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')
+    ]) {
+      withEnv(["GITHUB_RELEASE_URL=${releaseUrl}"]) {
+        out = sh(
+          script: '''
+            set -e
+            curl -sS \
+              -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -w "\\n%{http_code}" \
+              "$GITHUB_RELEASE_URL"
+          ''',
+          returnStdout: true
+        ).trim()
+      }
+    }
+  } else {
+    withEnv(["GITHUB_RELEASE_URL=${releaseUrl}"]) {
+      out = sh(
+        script: '''
+          set -e
+          curl -sS \
+            -H "Accept: application/vnd.github+json" \
+            -w "\\n%{http_code}" \
+            "$GITHUB_RELEASE_URL"
+        ''',
+        returnStdout: true
+      ).trim()
+    }
+  }
+  def lines = out.readLines()
+  if (lines.isEmpty()) error("[github] Empty response from GitHub")
+  def responseStatus = lines.last().trim().toInteger()
+  def responseBody = (lines.size() > 1) ? lines[0..-2].join('\n') : ""
+  if (responseStatus != 200) {
+    echo "[github] find asset failure with HTTP error ${responseStatus}:"
+    echo responseBody
+    error "[github] find asset failure"
+    return null
+  }
+  def responseJSON = new groovy.json.JsonSlurper().parseText(responseBody)
+  def asset = (responseJSON.assets ?: []).find { a ->
+    a?.name && pattern.matcher(a.name as String).matches()
+  }
+  if (!asset) {
+    return null
+  }
+  return [
+    tag : responseJSON.tag_name,
+    name: asset.name,
+    url : "https://api.github.com/repos/${owner}/${repo}/releases/assets/${asset.id}",
+  ]
+}

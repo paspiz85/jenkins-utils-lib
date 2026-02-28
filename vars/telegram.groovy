@@ -27,6 +27,7 @@ def sendMessage(Map a = [:]) {
       "TELEGRAM_PARSE_MODE=${parseMode ?: ''}"
     ]) {
       sh '''
+        #!/usr/bin/env bash
         set -e
         BASE_URL="https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage"
         # Use an array to avoid word-splitting issues with spaces/special chars

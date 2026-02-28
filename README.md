@@ -28,7 +28,7 @@ pipeline {
   agent any
   environment {
     TELEGRAM_BOT_TOKEN_ID = "telegram-token"
-    TELEGRAM_BOT_CHAT_ID = "-100xxx"
+    TELEGRAM_CHAT_ID = "-100xxx"
   }
   stages {
     stage('Notify') {

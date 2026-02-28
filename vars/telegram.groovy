@@ -46,7 +46,7 @@ URL: ${env.BUILD_URL}"""
   sendMessage(a + [message: msg])
 }
 
-def notifyBuildFailed(Map a = [:]) {
+def notifyBuildFailure(Map a = [:]) {
   def msg = """❌ Build FAILED
 Job: ${env.JOB_NAME}
 Build: #${env.BUILD_NUMBER}

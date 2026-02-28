@@ -22,7 +22,7 @@
 Se non hai “Load implicitly”:
 
 ```
-@Library(value="my-jenkins-utils-lib", changelog=false)
+library(identifier: 'my-jenkins-utils-lib', changelog: false)
 
 pipeline {
   agent any

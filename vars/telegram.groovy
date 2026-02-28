@@ -38,34 +38,31 @@ def sendMessage(Map args = [:]) {
   }
 }
 
+def notifyBuildMessage() {
+  def parts = [
+    "Job: ${env.JOB_NAME}",
+    "Build: #${env.BUILD_NUMBER}"
+  ]
+  def buildDescription = currentBuild?.description?.trim()
+  if (buildDescription) {
+    parts << "Description: ${buildDescription}"
+  }
+  parts << "URL: ${env.BUILD_URL}"
+  return parts.join("\n")
+}
+
 def notifyDeploySuccess(Map args = [:]) {
-  def msg = """🚀 Deploy SUCCESS
-Job: ${env.JOB_NAME}
-Build: #${env.BUILD_NUMBER}
-URL: ${env.BUILD_URL}"""
-  sendMessage(args + [message: msg])
+  sendMessage(args + [message: "🚀 Deploy SUCCESS\n${notifyBuildMessage()}"])
 }
 
 def notifyBuildFailure(Map args = [:]) {
-  def msg = """❌ Build FAILED
-Job: ${env.JOB_NAME}
-Build: #${env.BUILD_NUMBER}
-URL: ${env.BUILD_URL}"""
-  sendMessage(args + [message: msg])
+  sendMessage(args + [message: "❌ Build FAILED\n${notifyBuildMessage()}"])
 }
 
 def notifyBuildFixed(Map args = [:]) {
-  def msg = """✅ Build FIXED
-Job: ${env.JOB_NAME}
-Build: #${env.BUILD_NUMBER}
-URL: ${env.BUILD_URL}"""
-  sendMessage(args + [message: msg])
+  sendMessage(args + [message: "✅ Build FIXED\n${notifyBuildMessage()}"])
 }
 
 def notifyBuildSuccess(Map args = [:]) {
-  def msg = """✅ Build SUCCESS
-Job: ${env.JOB_NAME}
-Build: #${env.BUILD_NUMBER}
-URL: ${env.BUILD_URL}"""
-  sendMessage(args + [message: msg])
+  sendMessage(args + [message: "✅ Build SUCCESS\n${notifyBuildMessage()}"])
 }

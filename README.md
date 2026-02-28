@@ -29,15 +29,12 @@ pipeline {
   environment {
     TELEGRAM_BOT_TOKEN_ID = "telegram-token"
     TELEGRAM_BOT_CHAT_ID = "-100xxx"
-
   }
   stages {
     stage('Notify') {
       steps {
         script {
           telegram.sendMessage(
-            credentialsId: env.TELEGRAM_BOT_TOKEN_ID, // optional
-            credentialsId: env.TELEGRAM_BOT_CHAT_ID,  // optional
             message: "Hello World!"
           )
         }

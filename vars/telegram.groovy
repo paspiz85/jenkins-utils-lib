@@ -37,3 +37,35 @@ def sendMessage(Map a = [:]) {
     }
   }
 }
+
+def notifyDeploySuccess(Map a = [:]) {
+  def msg = """🚀 Deploy SUCCESS
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+URL: ${env.BUILD_URL}"""
+  sendMessage(a + [message: msg])
+}
+
+def notifyBuildFailed(Map a = [:]) {
+  def msg = """❌ Build FAILED
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+URL: ${env.BUILD_URL}"""
+  sendMessage(a + [message: msg])
+}
+
+def notifyBuildFixed(Map a = [:]) {
+  def msg = """✅ Build FIXED
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+URL: ${env.BUILD_URL}"""
+  sendMessage(a + [message: msg])
+}
+
+def notifyBuildSuccess(Map a = [:]) {
+  def msg = """✅ Build SUCCESS
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+URL: ${env.BUILD_URL}"""
+  sendMessage(a + [message: msg])
+}

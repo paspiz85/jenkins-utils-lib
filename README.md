@@ -8,13 +8,13 @@
 - Scorri fino a Global Pipeline Libraries
 - Clicca Add
 - Inserisci la libreria con:
-    Name: paspiz85-jenkins-utils-lib
-    Default version: main
-    Load implicitly: OFF
-    Allow default version to be overridden: ON
-    Include @Library changes in job recent changes: ON
-    Cache fetched versions on controller for quick retrieval: OFF
-    Repo URL: https://github.com/paspiz85/jenkins-utils-lib.git
+  - Name: paspiz85-jenkins-utils-lib
+  - Default version: main
+  - Load implicitly: OFF
+  - Allow default version to be overridden: ON
+  - Include @Library changes in job recent changes: OFF (altrimenti ad ogni modifica della libreria partono le modifiche alle pipeline)
+  - Cache fetched versions on controller for quick retrieval: OFF
+  - Repo URL: https://github.com/paspiz85/jenkins-utils-lib.git
 - Salva
 
 ## Uso nel Jenkinsfile

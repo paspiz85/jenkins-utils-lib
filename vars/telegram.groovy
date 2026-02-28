@@ -27,18 +27,12 @@ def sendMessage(Map a = [:]) {
       "TELEGRAM_PARSE_MODE=${parseMode ?: ''}"
     ]) {
       sh '''
-        #!/usr/bin/env bash
         set -e
-        BASE_URL="https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage"
-        # Use an array to avoid word-splitting issues with spaces/special chars
-        ARGS=( -d "chat_id=${TELEGRAM_CHAT_ID}" --data-urlencode "text=${TELEGRAM_MESSAGE}" )
-        if [ -n "${TELEGRAM_THREAD_ID}" ]; then
-          ARGS+=( -d "message_thread_id=${TELEGRAM_THREAD_ID}" )
-        fi
-        if [ -n "${TELEGRAM_PARSE_MODE}" ]; then
-          ARGS+=( -d "parse_mode=${TELEGRAM_PARSE_MODE}" )
-        fi
-        curl -sS -f -X POST "$BASE_URL" "${ARGS[@]}"
+        curl -sS -f -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          -d "chat_id=${TELEGRAM_CHAT_ID}" \
+          ${TELEGRAM_THREAD_ID:+-d "message_thread_id=${TELEGRAM_THREAD_ID}"} \
+          ${TELEGRAM_PARSE_MODE:+-d "parse_mode=${TELEGRAM_PARSE_MODE}"} \
+          --data-urlencode "text=${TELEGRAM_MESSAGE}"
       '''
     }
   }

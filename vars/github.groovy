@@ -21,6 +21,27 @@ private Map _parseRepoURL(String urlIn) {
   return [owner: parts[0], repo: parts[1]]
 }
 
+def fetchTags(Map args = [:]) {
+  def credentialsId = args.credentialsId ?: args.credentialId ?: env.GITHUB_CREDS_ID
+  if (!credentialsId) {
+    error "[github] 'credentialsId' not provided and GITHUB_CREDS_ID not set"
+  }
+  def repoUrl = (args.url ?: env.GIT_URL)?.toString()?.trim()
+  if (!repoUrl) {
+    error "[github] url not provided and GIT_URL not set"
+  }
+  withCredentials([
+    usernamePassword(credentialsId: credentialsId, usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')
+  ]) {
+    withEnv(["GITHUB_REPO_URL=${repoUrl}"]) {
+      sh '''
+        AUTHED_URL=$(echo "$GITHUB_REPO_URL" | sed "s|https://|https://${GITHUB_USER}:${GITHUB_TOKEN}@|")
+        git fetch --tags --force "$AUTHED_URL"
+      '''
+    }
+  }
+}
+
 def release(Map args = [:]) {
   def credentialsId = args.credentialsId ?: args.credentialId ?: env.GITHUB_CREDS_ID
   if (!credentialsId) {

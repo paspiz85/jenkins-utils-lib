@@ -10,7 +10,7 @@ def sendMessage(Map args = [:]) {
   def parseMode = args.parseMode ?: env.TELEGRAM_PARSE_MODE
   def chatId = args.chatId ?: env.TELEGRAM_CHAT_ID
   if (!chatId) {
-    error "[telegram] Parameter 'chatId' not provided and TELEGRAM_BOT_CHAT_ID not set"
+    error "[telegram] Parameter 'chatId' not provided and TELEGRAM_CHAT_ID not set"
   }
   def threadId = args.threadId ?: env.TELEGRAM_THREAD_ID
   def credentialId = args.credentialId ?: env.TELEGRAM_BOT_TOKEN_ID

@@ -9,7 +9,7 @@ Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/) e il p
 ## [Unreleased]
 
 ### Added
-- Documentazione interna nella cartella `wiki/` (`CONVENTIONS.md`, `SPEC.md`, `DECISIONS.md`)
+- Documentazione interna nella cartella `docs/` (`CONVENTIONS.md`, `SPEC.md`, `DECISIONS.md`, `SECURITY.md`, `TODO.md`)
 
 ---
 

@@ -9,6 +9,8 @@ Una **Jenkins Shared Library** in Groovy che fornisce funzioni riutilizzabili pe
 - `vars/github.groovy` — integrazione con GitHub API (tag, release, asset)
 - `vars/telegram.groovy` — invio messaggi e notifiche via Telegram Bot API
 
+La documentazione interna si trova nella cartella `docs/`.
+
 Non esiste un sistema di build locale. La libreria viene caricata direttamente da Jenkins; non ci sono comandi per compilare, testare o avviare il progetto in locale.
 
 ## Architettura
@@ -27,17 +29,17 @@ Le chiamate HTTP alle API esterne usano `curl` via passo `sh`, non librerie Groo
 - **Validazione:** parametri obbligatori validati esplicitamente all'inizio della funzione con `error "[modulo] messaggio"`.
 - **Credenziali:** sempre tramite `withCredentials`, mai in chiaro.
 
-Per le convenzioni complete vedere `wiki/CONVENTIONS.md`. Per le specifiche di ogni funzione (parametri, valori di ritorno, errori) vedere `wiki/SPEC.md`.
+Per le convenzioni complete vedere `docs/CONVENTIONS.md`. Per le specifiche di ogni funzione (parametri, valori di ritorno, errori) vedere `docs/SPEC.md`.
 
-## Documentazione wiki
+## Documentazione
 
 | File | Contenuto |
 |---|---|
-| `wiki/CONVENTIONS.md` | Regole di stile e pattern da seguire nel codice |
-| `wiki/SPEC.md` | Specifica completa di ogni modulo e funzione |
-| `wiki/DECISIONS.md` | Decisioni architetturali (ADR) con motivazioni |
-| `wiki/SECURITY.md` | Linee guida di sicurezza e permessi minimi |
-| `wiki/TODO.md` | Feature, miglioramenti e debito tecnico pendente |
+| `docs/CONVENTIONS.md` | Regole di stile e pattern da seguire nel codice |
+| `docs/SPEC.md` | Specifica completa di ogni modulo e funzione |
+| `docs/DECISIONS.md` | Decisioni architetturali (ADR) con motivazioni |
+| `docs/SECURITY.md` | Linee guida di sicurezza e permessi minimi |
+| `docs/TODO.md` | Feature, miglioramenti e debito tecnico pendente |
 
 ## Versionamento
 

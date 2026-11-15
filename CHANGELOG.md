@@ -10,6 +10,7 @@ Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/) e il p
 
 ### Added
 - Documentazione interna nella cartella `docs/` (`CONVENTIONS.md`, `SPEC.md`, `DECISIONS.md`, `SECURITY.md`, `TODO.md`)
+- Modulo `telegram`: notifica di build instabile (`notifyBuildUnstable`)
 
 ---
 

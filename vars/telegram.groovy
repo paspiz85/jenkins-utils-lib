@@ -66,3 +66,7 @@ def notifyBuildFixed(Map args = [:]) {
 def notifyBuildSuccess(Map args = [:]) {
   sendMessage(args + [message: "✅ Build SUCCESS\n${notifyBuildMessage()}"])
 }
+
+def notifyBuildUnstable(Map args = [:]) {
+  sendMessage(args + [message: "⚠️ Build UNSTABLE\n${notifyBuildMessage()}"])
+}

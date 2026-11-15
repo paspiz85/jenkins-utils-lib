@@ -279,6 +279,24 @@ URL: <BUILD_URL>
 
 ---
 
+### `telegram.notifyBuildUnstable`
+
+Invia una notifica di build instabile (risultato `UNSTABLE`, ad esempio per test falliti o soglie di qualità non rispettate).
+
+**Messaggio inviato:**
+
+```
+⚠️ Build UNSTABLE
+Job: <JOB_NAME>
+Build: #<BUILD_NUMBER>
+[Description: <currentBuild.description>]
+URL: <BUILD_URL>
+```
+
+**Parametri:** stessi di `sendMessage`, eccetto `message`.
+
+---
+
 ### `telegram.notifyDeploySuccess`
 
 Invia una notifica di deploy completato con successo.
@@ -324,6 +342,9 @@ pipeline {
   post {
     success {
       telegram.notifyBuildSuccess()
+    }
+    unstable {
+      telegram.notifyBuildUnstable()
     }
     failure {
       telegram.notifyBuildFailure()

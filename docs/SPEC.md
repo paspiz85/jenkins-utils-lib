@@ -234,10 +234,12 @@ Invia una notifica di build completata con successo.
 ```
 ✅ Build SUCCESS
 Job: <JOB_NAME>
-Build: #<BUILD_NUMBER>
+Build: <currentBuild.displayName>             ← se non valorizzato: #<BUILD_NUMBER>
 [Description: <currentBuild.description>]   ← inclusa solo se valorizzata
 URL: <BUILD_URL>
 ```
+
+`currentBuild.displayName` vale di default `#<BUILD_NUMBER>`; se la pipeline lo imposta (es. `currentBuild.displayName = "v1.2.3"`) viene usato il valore personalizzato. Lo stesso formato vale per tutte le notifiche predefinite.
 
 **Parametri:** stessi di `sendMessage`, eccetto `message` (generato automaticamente).
 
@@ -252,7 +254,7 @@ Invia una notifica di build fallita.
 ```
 ❌ Build FAILED
 Job: <JOB_NAME>
-Build: #<BUILD_NUMBER>
+Build: <currentBuild.displayName>
 [Description: <currentBuild.description>]
 URL: <BUILD_URL>
 ```
@@ -270,7 +272,7 @@ Invia una notifica di build tornata al verde dopo un fallimento.
 ```
 ✅ Build FIXED
 Job: <JOB_NAME>
-Build: #<BUILD_NUMBER>
+Build: <currentBuild.displayName>
 [Description: <currentBuild.description>]
 URL: <BUILD_URL>
 ```
@@ -288,7 +290,7 @@ Invia una notifica di build instabile (risultato `UNSTABLE`, ad esempio per test
 ```
 ⚠️ Build UNSTABLE
 Job: <JOB_NAME>
-Build: #<BUILD_NUMBER>
+Build: <currentBuild.displayName>
 [Description: <currentBuild.description>]
 URL: <BUILD_URL>
 ```
@@ -306,7 +308,7 @@ Invia una notifica di deploy completato con successo.
 ```
 🚀 Deploy SUCCESS
 Job: <JOB_NAME>
-Build: #<BUILD_NUMBER>
+Build: <currentBuild.displayName>
 [Description: <currentBuild.description>]
 URL: <BUILD_URL>
 ```

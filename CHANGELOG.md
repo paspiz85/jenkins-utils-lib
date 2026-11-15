@@ -12,6 +12,9 @@ Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/) e il p
 - Documentazione interna nella cartella `docs/` (`CONVENTIONS.md`, `SPEC.md`, `DECISIONS.md`, `SECURITY.md`, `TODO.md`)
 - Modulo `telegram`: notifica di build instabile (`notifyBuildUnstable`)
 
+### Changed
+- Modulo `telegram`: le notifiche predefinite mostrano `currentBuild.displayName` nella riga `Build:` al posto di `#BUILD_NUMBER` (fallback su `#BUILD_NUMBER` se non valorizzato)
+
 ---
 
 ## [0.1.0] — 2025

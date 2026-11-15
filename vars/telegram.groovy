@@ -39,9 +39,10 @@ def sendMessage(Map args = [:]) {
 }
 
 def notifyBuildMessage() {
+  def buildName = currentBuild?.displayName?.trim() ?: "#${env.BUILD_NUMBER}"
   def parts = [
     "Job: ${env.JOB_NAME}",
-    "Build: #${env.BUILD_NUMBER}"
+    "Build: ${buildName}"
   ]
   def buildDescription = currentBuild?.description?.trim()
   if (buildDescription) {
